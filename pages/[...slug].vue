@@ -23,6 +23,14 @@ const config = useRuntimeConfig();
 
 const reqDoc = await fetch(`https://api.doc2.site/v1/docs/${workspace}/${config.public.project}?path=${path}`);
 
+if (!reqDoc.ok) {
+  throw createError({
+    statusCode: 404,
+    fatal: true,
+    statusMessage: 'Page Not Found'
+  });
+}
+
 const doc: Document = await reqDoc.json();
 
 const { meta, hast, components, references } = doc;
