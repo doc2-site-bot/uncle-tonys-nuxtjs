@@ -14,7 +14,7 @@ const workspace = process.env.NODE_ENV === 'production' ? 'live' : 'preview';
 
 const route = useRoute();
 let path = '/';
-const slug = route.params?.slug ? route.params.slug : [];
+const slug = route.params?.slug && Array.isArray(route.params.slug) ? route.params.slug : [];
 if (slug.length) {
   path = `${path}${slug.join('/')}`;
 }
@@ -37,7 +37,8 @@ const { meta, hast, components, references } = doc;
 
 const refs = references ? await resolveReferences(references) : undefined;
 
-let header, footer;
+let header: Document | null, footer: Document | null;
+
 if (refs) {
   const [headerDocument, footerDocument] = ['header', 'footer'].map((name) => {
     const element = select(name, hast);
