@@ -81,8 +81,6 @@ function Menu({ hast, refs }: { hast: Element; refs: Reference | undefined }) {
       </div>
     </div>
   );
-
-  return null;
 }
 
 export default Menu;
