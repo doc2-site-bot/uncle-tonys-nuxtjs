@@ -19,12 +19,12 @@ function Contact({ hast }: { hast: Element }) {
             class="absolute top-0 left-0 h-full w-full border-0"
             width="500"
             height="500"
-            referrerPolicy="no-referrer-when-downgrade"
+            referrerpolicy="no-referrer-when-downgrade"
             src={`https://www.google.com/maps/embed/v1/place?key=${config.public.mapsKey}&q=${mapsAddress.replaceAll(
               ' ',
               '+'
             )}`}
-            allowFullScreen
+            allowfullscreen
           />
         </div>
       )}

@@ -6,7 +6,7 @@
     "build": "NITRO_PRESET=cloudflare nuxi build",
     "dev": "nuxi dev",
     "start": "nuxi preview",
-    "lint": "eslint --ext \".ts,.vue,.tsx\" --ignore-path .gitignore . && nuxi typecheck",
+    "lint": "eslint --ext \".ts,.vue,.tsx\" --ignore-path .gitignore . && nuxi typecheck && npx tsc --noEmit",
     "format": "prettier --write '**/*.{ts,tsx,json,js,vue}' --ignore-path .gitignore"
   },
   "dependencies": {
