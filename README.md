@@ -1,6 +1,6 @@
 # Uncle Tony's with Nuxt.js
 
-A [Nuxt.js](https://nuxt.com/) project bootstrapped with [`nuxi`](https://nuxt.com/docs/getting-started/installation) including TypeScript and Tailwind CSS using [doc2.site](https://doc2.site) as the content source.
+A [Nuxt.js](https://nuxt.com/) project bootstrapped with [`npx nuxi init`](https://nuxt.com/docs/getting-started/installation) including TypeScript and Tailwind CSS using [doc2.site](https://doc2.site) as the content source.
 
 Uncle Tony's is a fictitious restaurant in San Francisco. 
 
@@ -33,4 +33,4 @@ Check out the [Nuxt.js deployment documentation](https://nuxt.com/docs/getting-s
 To learn more, take a look at the following resources:
 
 - [doc2.site docs](https://doc2.site/documentation) - learn about doc2.site features for authors and developers.
-- [nuxt.js docs](https://nuxt.com/docs/getting-started/introduction) - learn about Nuxt.js features and API.
+- [Nuxt.js docs](https://nuxt.com/docs/getting-started/introduction) - learn about Nuxt.js features and API.
