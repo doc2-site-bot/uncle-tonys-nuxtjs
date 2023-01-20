@@ -15,7 +15,7 @@ function MenuItem({ name, price, description }: { name: string; price: string; d
   );
 }
 
-function Menu({ hast, refs }: { hast: Element; refs: Reference | undefined }) {
+function Menu({ hast, refs }: { hast: Element; refs: ResolvedReference | undefined }) {
   if (!refs) {
     return null;
   }

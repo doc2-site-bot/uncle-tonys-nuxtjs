@@ -8,10 +8,16 @@
 
 <script setup lang="ts">
 import { select } from 'hast-util-select';
-import { resolveReferences } from '../utils';
+import { Root } from 'hast';
 
-const workspace = process.env.NODE_ENV === 'production' ? 'live' : 'preview';
+type PageProps = {
+  meta?: { [key: string]: string };
+  hast?: Root;
+  refs?: ResolvedReference;
+  components?: string[];
+};
 
+// Resolve path
 const route = useRoute();
 let path = '/';
 const slug = route.params?.slug && Array.isArray(route.params.slug) ? route.params.slug : [];
@@ -19,11 +25,8 @@ if (slug.length) {
   path = `${path}${slug.join('/')}`;
 }
 
-const config = useRuntimeConfig();
-
-const reqDoc = await fetch(`https://api.doc2.site/v1/docs/${workspace}/${config.public.project}?path=${path}`);
-
-if (!reqDoc.ok) {
+// Ignore fragments
+if (path.startsWith('/fragments/')) {
   throw createError({
     statusCode: 404,
     fatal: true,
@@ -31,14 +34,11 @@ if (!reqDoc.ok) {
   });
 }
 
-const doc: Document = await reqDoc.json();
+// Fetch page props
+const { meta, hast, refs, components } = (await $fetch(`/api/page-props?path=${path}`)) as PageProps;
 
-const { meta, hast, components, references } = doc;
-
-const refs = references ? await resolveReferences(references) : undefined;
-
+// Query header and footer
 let header: Document | null, footer: Document | null;
-
 if (refs) {
   const [headerDocument, footerDocument] = ['header', 'footer'].map((name) => {
     const element = select(name, hast);
@@ -54,7 +54,11 @@ if (refs) {
   footer = footerDocument;
 }
 
+// Update document title and meta
 useHead({
+  htmlAttrs: {
+    lang: 'en'
+  },
   title: meta?.title,
   meta: [{ name: 'description', content: meta?.description }]
 });

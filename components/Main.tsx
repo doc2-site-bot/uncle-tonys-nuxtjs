@@ -8,7 +8,7 @@ import Menu from './Menu';
 type RenderParams = {
   meta?: { [key: string]: string };
   hast?: Root;
-  refs?: Reference;
+  refs?: ResolvedReference;
   components?: string[];
   key?: string;
 };

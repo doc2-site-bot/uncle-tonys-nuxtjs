@@ -1,4 +1,4 @@
-import { selectAll } from 'hast-util-select';
+import { select, selectAll } from 'hast-util-select';
 import { toText } from 'hast-util-to-text';
 import { Root } from 'hast';
 import { NuxtLink } from '#components';
@@ -8,10 +8,22 @@ function Header({ hast }: { hast: Root | undefined }) {
     return null;
   }
 
+  const logo = select('img', hast);
   const links = selectAll('a', hast);
 
   return (
-    <header class="flex h-32 items-center justify-center gap-4">
+    <header class="flex items-center justify-center gap-4 py-2 flex-wrap">
+      {logo?.properties && (
+        <img
+          class="md:ml-[-115px]"
+          src={String(logo.properties.src || '')}
+          height={115}
+          width={115}
+          loading="eager"
+          alt={String(logo.properties.alt || '')}
+        />
+      )}
+
       <nav class="flex items-center">
         {links.map((link) => {
           const href = String(link?.properties?.href || '');

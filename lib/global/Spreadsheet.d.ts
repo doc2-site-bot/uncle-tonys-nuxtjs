@@ -12,6 +12,7 @@ interface Spreadsheet {
   sheets?: Array<Sheet>;
   rows?: Array<{ [key: string]: string }>;
   keys?: string[];
+  references?: Array<Reference>;
   publishedBy?: string;
   publishedAt?: string;
   publishedFrom?: string;
