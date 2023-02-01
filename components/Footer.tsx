@@ -30,7 +30,7 @@ export default function Footer({ hast }: { hast: Root | undefined }) {
   return (
     <footer class="prose max-w-none text-center mx-auto px-8">
       {toH((name, props, children) => {
-        if (name === 'variable') {
+        if (name === 'var') {
           const key = children?.[0];
           const variable = variables[key as keyof typeof variables];
 
