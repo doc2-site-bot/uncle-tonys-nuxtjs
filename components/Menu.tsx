@@ -1,9 +1,17 @@
-import { toH } from 'hast-to-hyperscript';
-import { h as createElement } from 'vue';
-import { Element } from 'hast';
-import { h } from 'hastscript';
+import { toH } from "hast-to-hyperscript";
+import { h as createElement } from "vue";
+import { Element } from "hast";
+import { h } from "hastscript";
 
-function MenuItem({ name, price, description }: { name: string; price: string; description?: string }) {
+function MenuItem({
+  name,
+  price,
+  description,
+}: {
+  name: string;
+  price: string;
+  description?: string;
+}) {
   return (
     <div>
       <div class="italic flex">
@@ -15,18 +23,24 @@ function MenuItem({ name, price, description }: { name: string; price: string; d
   );
 }
 
-function Menu({ hast, refs }: { hast: Element; refs: ResolvedReference | undefined }) {
+function Menu({
+  hast,
+  refs,
+}: {
+  hast: Element;
+  refs: ResolvedReference | undefined;
+}) {
   if (!refs) {
     return null;
   }
 
-  const { keys, rows } = refs[String(hast?.properties?.details || '')];
+  const { keys, rows } = refs[String(hast?.properties?.details || "")];
 
   if (!keys || !rows) {
     return null;
   }
 
-  const isByType = keys.includes('type');
+  const isByType = keys.includes("type");
   const rowsByType: { [key: string]: Array<{ [key: string]: string }> } = {};
   if (isByType) {
     rows.forEach((row) => {
@@ -40,7 +54,7 @@ function Menu({ hast, refs }: { hast: Element; refs: ResolvedReference | undefin
 
   return (
     <div class="prose lg:prose-xl bg-red-900 mx-auto px-8 m-16 rounded-md drop-shadow-lg">
-      <div class="py-1">{toH(createElement, h('div', ...hast.children))}</div>
+      <div class="py-1">{toH(createElement, h("div", ...hast.children))}</div>
       <div class="flex flex-col gap-4">
         {isByType
           ? Object.keys(rowsByType).map((type) => {
@@ -50,17 +64,27 @@ function Menu({ hast, refs }: { hast: Element; refs: ResolvedReference | undefin
                     <div class="divide-y-2">
                       <strong class="italic block">{type}</strong>
                       {rowsByType[type].map((row) => (
-                        <MenuItem name={row.name} price={row.price} description={row.description} />
+                        <MenuItem
+                          name={row.name}
+                          price={row.price}
+                          description={row.description}
+                        />
                       ))}
                     </div>
                   ) : (
-                    <MenuItem name={type} price={rowsByType[type][0].price} description={rowsByType[type][0].name} />
+                    <MenuItem
+                      name={type}
+                      price={rowsByType[type][0].price}
+                      description={rowsByType[type][0].name}
+                    />
                   )}
                 </div>
               );
             })
           : rows.map((row) => {
-              const prices = Object.keys(row).filter((key) => key.startsWith('price'));
+              const prices = Object.keys(row).filter((key) =>
+                key.startsWith("price")
+              );
 
               if (prices.length > 1) {
                 return (
@@ -69,14 +93,23 @@ function Menu({ hast, refs }: { hast: Element; refs: ResolvedReference | undefin
                     <p>{row.description}</p>
                     <div class="divide-y-2">
                       {prices.map((price) => (
-                        <MenuItem name={price.replace('price', '')} price={row[price]} />
+                        <MenuItem
+                          name={price.replace("price", "")}
+                          price={row[price]}
+                        />
                       ))}
                     </div>
                   </div>
                 );
               }
 
-              return <MenuItem name={row.name} price={row.price} description={row.description} />;
+              return (
+                <MenuItem
+                  name={row.name}
+                  price={row.price}
+                  description={row.description}
+                />
+              );
             })}
       </div>
     </div>

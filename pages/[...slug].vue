@@ -7,8 +7,8 @@
 </template>
 
 <script setup lang="ts">
-import { select } from 'hast-util-select';
-import { Root } from 'hast';
+import { select } from "hast-util-select";
+import { Root } from "hast";
 
 type PageProps = {
   meta?: { [key: string]: string };
@@ -19,36 +19,43 @@ type PageProps = {
 
 // Resolve path
 const route = useRoute();
-let path = '/';
-const slug = route.params?.slug && Array.isArray(route.params.slug) ? route.params.slug : [];
+let path = "/";
+const slug =
+  route.params?.slug && Array.isArray(route.params.slug)
+    ? route.params.slug
+    : [];
 if (slug.length) {
-  path = `${path}${slug.join('/')}`;
+  path = `${path}${slug.join("/")}`;
 }
 
 // Ignore fragments
-if (path.startsWith('/fragments/')) {
+if (path.startsWith("/fragments/")) {
   throw createError({
     statusCode: 404,
     fatal: true,
-    statusMessage: 'Page Not Found'
+    statusMessage: "Page Not Found",
   });
 }
 
 // Fetch page props
-const { meta, hast, refs, components } = (await $fetch(`/api/page-props?path=${path}`)) as PageProps;
+const { meta, hast, refs, components } = (await $fetch(
+  `/api/page-props?path=${path}`
+)) as PageProps;
 
 // Query header and footer
 let header: Document | null, footer: Document | null;
 if (refs) {
-  const [headerDocument, footerDocument] = ['header', 'footer'].map((name) => {
-    const element = select(name, hast);
+  const [headerDocument, footerDocument] = ["web-header", "web-footer"].map(
+    (name) => {
+      const element = select(name, hast);
 
-    if (element?.properties?.reference) {
-      return refs[String(element.properties.reference)];
+      if (element?.properties?.reference) {
+        return refs[String(element.properties.reference)];
+      }
+
+      return null;
     }
-
-    return null;
-  });
+  );
 
   header = headerDocument;
   footer = footerDocument;
@@ -57,9 +64,9 @@ if (refs) {
 // Update document title and meta
 useHead({
   htmlAttrs: {
-    lang: 'en'
+    lang: "en",
   },
   title: meta?.title,
-  meta: [{ name: 'description', content: meta?.description }]
+  meta: [{ name: "description", content: meta?.description }],
 });
 </script>

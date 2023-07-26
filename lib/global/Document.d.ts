@@ -4,7 +4,7 @@ interface Document {
   description?: string;
   tags?: string[];
   path?: string;
-  hast?: import('hast').Root;
+  hast?: import("hast").Root;
   meta?: { [key: string]: string };
   components?: string[];
   references?: Array<Reference>;

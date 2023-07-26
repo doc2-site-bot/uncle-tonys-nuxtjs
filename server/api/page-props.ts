@@ -1,4 +1,4 @@
-import { getFetchOptions, getWorkspace, resolveReferences } from '../../utils';
+import { getFetchOptions, getWorkspace, resolveReferences } from "../../utils";
 
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
     throw createError({
       statusCode: 404,
       fatal: true,
-      statusMessage: 'Page Not Found'
+      statusMessage: "Page Not Found",
     });
   }
 
@@ -22,12 +22,14 @@ export default defineEventHandler(async (event) => {
 
   const { meta, hast, components, references } = doc;
 
-  const refs = references ? await resolveReferences(references, workspace) : undefined;
+  const refs = references
+    ? await resolveReferences(references, workspace)
+    : undefined;
 
   return {
     meta,
     hast,
     refs,
-    components
+    components,
   };
 });
