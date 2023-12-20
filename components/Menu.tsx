@@ -94,7 +94,7 @@ function Menu({
                     <div class="divide-y-2">
                       {prices.map((price) => (
                         <MenuItem
-                          name={price.replace("price", "")}
+                          name={price.replace("price", "").replaceAll("-", " ")}
                           price={row[price]}
                         />
                       ))}
