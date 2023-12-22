@@ -19,10 +19,10 @@ function Hero({ hast }: { hast: Element }) {
           if (name === "img") {
             return (
               <img
-                src={properties.src}
+                src={properties.src.replace(".default.", ".600.")}
                 loading="eager"
                 alt={properties.alt}
-                class="object-cover"
+                class="object-cover w-full"
               />
             );
           }

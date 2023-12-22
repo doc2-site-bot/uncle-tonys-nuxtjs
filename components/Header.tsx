@@ -16,7 +16,7 @@ function Header({ hast }: { hast: Root | undefined }) {
       {logo?.properties && (
         <img
           class="md:ml-[-115px]"
-          src={String(logo.properties.src || "")}
+          src={String(logo.properties.src || "").replace(".default.", ".300.")}
           height={115}
           width={115}
           loading="eager"
